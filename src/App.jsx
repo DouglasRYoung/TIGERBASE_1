@@ -6,9 +6,9 @@ function App() {
   const [student, setStudent] = useState(0);
 
   useEffect(() => {
-    fetch('/').then(res => res.json()).then(data => {
+    fetch('/db_version').then(res => res.json()).then(data => {
       console.log(data)
-      setStudent(data.student);
+      setStudent(data);
     });
   }, []);
 
