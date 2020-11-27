@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import Form from "./Form.jsx"; 
 
 function App() {
   const [student, setStudent] = useState(0);
@@ -13,14 +14,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-
-        ... no changes in this part ...
-
-        <p> Student Information is: {student}.</p>
-      </header>
-    </div>
+    <Form />
   );
 }
 
