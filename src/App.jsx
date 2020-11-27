@@ -10,6 +10,7 @@ function App() {
       console.log(data)
       setStudent(data);
     });
+  
   }, []);
 
   return (

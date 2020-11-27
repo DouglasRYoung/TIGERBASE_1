@@ -23,6 +23,22 @@ def create_app():
         print(result)
         cur.close()
         return jsonify(result)
+
+    @app.route('/st_insert')
+    def insert_student():
+        print('INSERTING STUDENT')
+        conn = None
+        params = config()
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        #record_to_insert = ('Chemistry','1500', '32', '3.9', '10000', 'San Antonio', 'Private', '30000', 'steph')
+        query = "INSERT INTO student (preffered_major, sat_score, act_score, gpa, school_size, location_, pub_or_priv, willingness_topay, username) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        cur.execute(query)#, record_to_insert)
+        conn.commit()
+
+    
+
     return app
 
 if __name__ == '__main__':
