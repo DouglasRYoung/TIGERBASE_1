@@ -14,6 +14,7 @@ class Form extends React.Component {
         wtp: '',
         username: ''
       };
+      this.handleSubmit = this.handleSubmit.bind(this)
     }
     //preffered_major,sat_score,act_score,gpa,school_size,location_,pub_or_priv,willingness_topay,username
 
@@ -30,9 +31,35 @@ class Form extends React.Component {
       let name = event.target.username;
       this.setState({pm, sat, act, gpa, size, locale, pubOrPriv, WTP, name});
     }
+
+    handleSubmit(event) {
+      //alert('A name was submitted: ' + this.state.value);
+      console.log('this happened')
+      /*fetch('/st_insert').then(res => res.json()).then(data => {
+        console.log(data)
+        return data
+      });*/
+      fetch("/st_insert", {
+        method:"POST",
+        cache: "no-cache",
+        headers:{
+            "content_type":"application/json",
+        },
+        body:JSON.stringify(this.state)
+        }
+    ).then(response => {
+
+    return response.json()
+  })
+
+      event.preventDefault();
+    }
+
+    
+
     render() {
       return (
-        <form>
+        <form onSubmit={this.handleSubmit}> 
         <h1>Hello!</h1>
         <p>Enter your preffered_major:</p>
         <input
@@ -88,7 +115,8 @@ class Form extends React.Component {
           name='username'
           onChange={this.myChangeHandler}
         />
-        <Button> </Button>
+        <input type="submit" value="Submit" 
+        /> 
         </form>
       );
     }
