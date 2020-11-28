@@ -15,12 +15,15 @@ class Form extends React.Component {
         username: ''
       };
       this.handleSubmit = this.handleSubmit.bind(this)
+      this.myChangeHandler = this.myChangeHandler.bind(this)
     }
     //preffered_major,sat_score,act_score,gpa,school_size,location_,pub_or_priv,willingness_topay,username
 
-    myChangeHandler = (event) => {
+   // myChangeHandler = (event) => {
+    /*myChangeHandler(event){
+
       //let nam = event.target.name;
-      let pm = event.target.preffered_major;
+      let pm = event.target.value;
       let sat = event.target.sat_score;
       let act = event.target.act_score;
       let gpa = event.target.gpa;
@@ -30,27 +33,42 @@ class Form extends React.Component {
       let WTP = event.target.wtp;
       let name = event.target.username;
       this.setState({pm, sat, act, gpa, size, locale, pubOrPriv, WTP, name});
+    }*/
+
+
+    myChangeHandler (e) {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
     }
 
     handleSubmit(event) {
-      //alert('A name was submitted: ' + this.state.value);
       console.log('this happened')
       /*fetch('/st_insert').then(res => res.json()).then(data => {
         console.log(data)
         return data
       });*/
-      fetch("/st_insert", {
-        method:"POST",
-        cache: "no-cache",
-        headers:{
-            "content_type":"application/json",
-        },
-        body:JSON.stringify(this.state)
-        }
-    ).then(response => {
+      let state = this.state
 
-    return response.json()
+  fetch('/st_insert', {
+    method: 'POST',
+    body: JSON.stringify({
+        //"key": state["key"],
+        
+        "preffered_major": state.preffered_major,
+        "sat_score":state.sat_score,
+        "act_score":state.act_score,
+        "gpa":state.gpa,
+        "school_size": state.school_size,
+        "location_": state.location,
+        "pub_or_priv": state.pub_or_priv,
+        "willingness_topay":state.wtp,
+        "username" : state.username
+
+        })
   })
+  console.log(this.state.preffered_major)
+  console.log(this.state.username)
 
       event.preventDefault();
     }
@@ -64,55 +82,64 @@ class Form extends React.Component {
         <p>Enter your preffered_major:</p>
         <input
           type='text'
-          name='Preffered Major'
+          name='preffered_major'
+          value = {this.state.preffered_major}
           onChange={this.myChangeHandler}
         />
         <p>Enter your sat_score:</p>
         <input
           type='text'
-          name='SAT Score'
+          name='sat_score'
+          value = {this.state.sat_score}
           onChange={this.myChangeHandler}
         />
         <p>Enter your act_score:</p>
         <input
           type='text'
-          name='ACT Score'
+          name='act_score'
+          value = {this.state.act_score}
           onChange={this.myChangeHandler}
         />
         <p>Enter your GPA:</p>
         <input
           type='text'
-          name='GPA'
+          name='gpa'
+          value = {this.state.gpa}
           onChange={this.myChangeHandler}
         />
         <p>Enter your School Size:</p>
         <input
           type='text'
-          name='School Size'
+          name='school_size'
+          value = {this.state.school_size}
           onChange={this.myChangeHandler}
         />
         <p>Enter your Location:</p>
         <input
           type='text'
-          name='Location'
+          name='location'
+          value = {this.state.location}
           onChange={this.myChangeHandler}
         />
         <p>Enter your Pub/Priv:</p>
         <input
           type='text'
-          name='Pub/Priv'
+          name='pub_or_priv'
+          value = {this.state.pub_or_priv}
           onChange={this.myChangeHandler}
         />
         <p>Enter your willingness_topay:</p>
         <input
           type='text'
-          name='WTP'
+          name='wtp'
+          value = {this.state.wtp}
           onChange={this.myChangeHandler}
         />
         <p>Enter your username:</p>
         <input
           type='text'
           name='username'
+          value = {this.state.username}
           onChange={this.myChangeHandler}
         />
         <input type="submit" value="Submit" 

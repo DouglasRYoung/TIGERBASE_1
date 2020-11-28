@@ -15,7 +15,10 @@ function App() {
   }, []);
 
   return (
+    <div>
     <Form />
+  {student}
+    </div>
   );
 }
 
