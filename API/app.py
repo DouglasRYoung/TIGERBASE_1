@@ -65,6 +65,32 @@ def create_app():
         return jsonify(data_dict), 201
 
         #record_to_insert = ('Chemistry','1500', '32', '3.9', '10000', 'San Antonio', 'Private', '30000', 'steph')
+
+    @app.route('/st_delete', methods = ['DELETE'])
+    def delete_student():
+        print('DELETING STUDENT')
+        conn = None
+        params = config()
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+
+        data_json = request.data
+        data_dict = json.loads(data_json)
+        print(data_dict)
+
+        #query = "DELETE FROM student WHERE username = %s"
+        username = (data_dict['username'])
+        print(username)
+        print(type(username))
+        #cur.execute(query, username)
+        cur.execute("DELETE FROM student WHERE username = %s", (username))
+
+        conn.commit()
+
+
+
+
         
     
 
