@@ -77,16 +77,12 @@ def create_app():
 
         data_json = request.data
         data_dict = json.loads(data_json)
-        print(data_dict)
-
-        #query = "DELETE FROM student WHERE username = %s"
-        username = (data_dict['username'])
-        print(username)
-        print(type(username))
-        #cur.execute(query, username)
-        cur.execute("DELETE FROM student WHERE username = %s", (username))
-
+    
+        cur.execute('DELETE FROM student WHERE username = \'%s\'' % data_dict['username'])
+       
         conn.commit()
+        return jsonify(data_dict), 201
+
 
 
 
