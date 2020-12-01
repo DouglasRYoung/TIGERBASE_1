@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Form from "./Form.jsx"; 
 import MiniForm from "./MiniForm";
+import UpdateForm from "./UpdateForm";
 
 function App() {
   const [student, setStudent] = useState(0);
@@ -20,6 +21,7 @@ function App() {
     <Form />
   {student}
   <MiniForm />
+  <UpdateForm />
     </div>
   );
 }

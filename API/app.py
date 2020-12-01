@@ -82,7 +82,22 @@ def create_app():
        
         conn.commit()
         return jsonify(data_dict), 201
+    
+    @app.route('/st_update', methods = ['POST'])
+    def update_student():
+        print('UPDATING STUDENT')
+        conn = None
+        params = config()
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
 
+        data_json = request.data
+        data_dict = json.loads(data_json)
+      
+        cur.execute('UPDATE student SET gpa = \'%s\'  WHERE username = \'%s\'' % (data_dict['gpa'], data_dict['username']))
+        conn.commit()
+        return jsonify(data_dict), 201
 
 
 
