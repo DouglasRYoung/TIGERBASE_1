@@ -6,7 +6,14 @@ class UpdateForm extends React.Component {
       super(props);
       this.state = {
         username: '',
-        gpa: ''
+        gpa: '',
+        act: '',
+        sat: '',
+        school_size: '',
+        location: '',
+        pub_or_priv: '',
+        wtp: '',
+        username: ''
       };
       this.handleSubmit = this.handleSubmit.bind(this)
       this.myChangeHandler = this.myChangeHandler.bind(this)
@@ -27,7 +34,13 @@ class UpdateForm extends React.Component {
     method: 'POST',
     body: JSON.stringify({
         "username" : state.username,
-        "gpa" : state.gpa
+        "gpa" : state.gpa,
+        "act": state.act,
+        "sat": state.sat,
+        "school_size": state.school_size,
+        "location": state.location, 
+        "pub_or_priv": state.pub_or_priv,
+        "wtp": state.wtp,
         })
   })
   console.log(this.state.username)
@@ -54,6 +67,48 @@ class UpdateForm extends React.Component {
           name='gpa'
           value = {this.state.gpa}
           onChange={this.myChangeHandler}
+        />
+        <p>Update your ACT Score:</p>
+        <input
+          type='text'
+          name='act'
+          value = {this.state.act}
+          onChange={this.myChangeHandler}
+        />
+        <p>Update your SAT Score:</p>
+        <input
+          type='text'
+          name='sat'
+          value = {this.state.sat}
+          onChange={this.myChangeHandler}
+          />
+        <p>Update your preffered school size:</p>
+        <input
+          type='text'
+          name='school_size'
+          value = {this.state.school_size}
+          onChange={this.myChangeHandler}  
+        />
+        <p>Update your preffered location:</p>
+        <input
+          type='text'
+          name='location'
+          value = {this.state.location}
+          onChange={this.myChangeHandler}  
+        />
+         <p>Update if it is public or private:</p>
+        <input
+          type='text'
+          name='pub_or_priv'
+          value = {this.state.pub_or_priv}
+          onChange={this.myChangeHandler}  
+        />
+         <p>Update your willingness to pay:</p>
+        <input
+          type='text'
+          name='wtp'
+          value = {this.state.wtp}
+          onChange={this.myChangeHandler}  
         />
         <input type="submit" value="Submit" 
         /> 

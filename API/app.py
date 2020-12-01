@@ -95,10 +95,9 @@ def create_app():
         data_json = request.data
         data_dict = json.loads(data_json)
       
-        cur.execute('UPDATE student SET gpa = \'%s\'  WHERE username = \'%s\'' % (data_dict['gpa'], data_dict['username']))
+        cur.execute('UPDATE student SET gpa = \'%s\' , act = \'%s\', sat = \'%s\', school_size = \'%s\', location_ = \'%s\', pub_or_priv = \'%s\', wtp = \'%s\' WHERE username = \'%s\'' % (data_dict['gpa'], data_dict['act'], data_dict['sat'], data_dict['school_size'], data_dict['location_'], data_dict['pub_or_priv'], data_dict['wpa'],data_dict['username']))
         conn.commit()
         return jsonify(data_dict), 201
-
 
 
 
