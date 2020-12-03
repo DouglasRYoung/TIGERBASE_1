@@ -94,8 +94,22 @@ def create_app():
 
         data_json = request.data
         data_dict = json.loads(data_json)
-      
-        cur.execute('UPDATE student SET preffered_major = \'%s\', sat_score = \'%s\', act_score = \'%s\', gpa = \'%s\' , school_size = \'%s\', location_ = \'%s\', pub_or_priv = \'%s\', willingness_topay = \'%s\' WHERE username = \'%s\'' % ( data_dict['preffered_major'], data_dict['sat_score'], data_dict['act_score'], data_dict['gpa']data_dict['school_size'], data_dict['location'], data_dict['pub_or_priv'], data_dict['wpa'], data_dict['username']))
+        if (data_dict['preffered_major'] != ""):
+            cur.execute('UPDATE student SET preffered_major = \'%s\' WHERE username = \'%s\'' % (data_dict['preffered_major'], data_dict['username']))
+        if (data_dict['sat'] != ""):
+            cur.execute('UPDATE student SET sat_score = \'%s\' WHERE username = \'%s\'' % (data_dict['sat'], data_dict['username']))
+        if (data_dict['act'] != ""):
+            cur.execute('UPDATE student SET act_score = \'%s\' WHERE username = \'%s\'' % (data_dict['act'], data_dict['username']))
+        if (data_dict['gpa'] != ""):
+            cur.execute('UPDATE student SET gpa = \'%s\' WHERE username = \'%s\'' % (data_dict['gpa'], data_dict['username']))
+        if (data_dict['school_size'] != ""):
+            cur.execute('UPDATE student SET school_size = \'%s\' WHERE username = \'%s\'' % (data_dict['school_size'], data_dict['username']))
+        if (data_dict['location'] != ""):
+            cur.execute('UPDATE student SET location_ = \'%s\' WHERE username = \'%s\'' % (data_dict['location'], data_dict['username']))
+        if (data_dict['pub_or_priv'] != ""):
+            cur.execute('UPDATE student SET pub_or_priv = \'%s\' WHERE username = \'%s\'' % (data_dict['pub_or_priv'], data_dict['username']))
+        if (data_dict['wtp'] != ""):
+            cur.execute('UPDATE student SET willingness_topay = \'%s\' WHERE username = \'%s\'' % (data_dict['wtp'], data_dict['username']))
         conn.commit()
         return jsonify(data_dict), 201
 

@@ -61,7 +61,7 @@ class UpdateForm extends React.Component {
           value = {this.state.username}
           onChange={this.myChangeHandler}
         />
-        <p>Update your willingness to pay:</p>
+        <p>Preffered Major:</p>
         <input
           type='text'
           name='preffered_major'
