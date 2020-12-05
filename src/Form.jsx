@@ -17,24 +17,6 @@ class Form extends React.Component {
       this.handleSubmit = this.handleSubmit.bind(this)
       this.myChangeHandler = this.myChangeHandler.bind(this)
     }
-    //preffered_major,sat_score,act_score,gpa,school_size,location_,pub_or_priv,willingness_topay,username
-
-   // myChangeHandler = (event) => {
-    /*myChangeHandler(event){
-
-      //let nam = event.target.name;
-      let pm = event.target.value;
-      let sat = event.target.sat_score;
-      let act = event.target.act_score;
-      let gpa = event.target.gpa;
-      let size = event.target.school_size;
-      let locale = event.target.location;
-      let pubOrPriv = event.target.pub_or_priv;
-      let WTP = event.target.wtp;
-      let name = event.target.username;
-      this.setState({pm, sat, act, gpa, size, locale, pubOrPriv, WTP, name});
-    }*/
-
 
     myChangeHandler (e) {
       this.setState({
@@ -44,17 +26,11 @@ class Form extends React.Component {
 
     handleSubmit(event) {
       console.log('this happened')
-      /*fetch('/st_insert').then(res => res.json()).then(data => {
-        console.log(data)
-        return data
-      });*/
       let state = this.state
 
   fetch('/st_insert', {
     method: 'POST',
     body: JSON.stringify({
-        //"key": state["key"],
-        
         "preffered_major": state.preffered_major,
         "sat_score":state.sat_score,
         "act_score":state.act_score,
@@ -73,12 +49,10 @@ class Form extends React.Component {
       event.preventDefault();
     }
 
-    
-
     render() {
       return (
         <form onSubmit={this.handleSubmit}> 
-        <h1>Hello!</h1>
+        <h1>Create/Insert Student Entry:</h1>
         <p>Enter your preffered_major:</p>
         <input
           type='text'

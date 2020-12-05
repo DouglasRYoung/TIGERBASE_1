@@ -32,12 +32,10 @@ class MiniForm extends React.Component {
       event.preventDefault();
     }
 
-    
-
     render() {
       return (
         <form onSubmit={this.handleSubmit}> 
-        <h1>Hello!</h1>
+        <h1>Delete Student Entry:</h1>
         
         <p>Enter your username:</p>
         <input

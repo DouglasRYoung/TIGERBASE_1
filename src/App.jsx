@@ -4,6 +4,7 @@ import './App.css';
 import Form from "./Form.jsx"; 
 import MiniForm from "./MiniForm";
 import UpdateForm from "./UpdateForm";
+import CollegeSearch from "./CollegeSearch";
 
 function App() {
   const [student, setStudent] = useState(0);
@@ -22,8 +23,9 @@ function App() {
   {student}
   <MiniForm />
   <UpdateForm />
+  <CollegeSearch />
     </div>
-  );
+  ); 
 }
 
 export default App;

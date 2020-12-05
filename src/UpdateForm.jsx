@@ -53,7 +53,7 @@ class UpdateForm extends React.Component {
     render() {
       return (
         <form onSubmit={this.handleSubmit}> 
-        <h1>Hello!</h1>
+        <h1>Update Your Information:</h1>
         <p>Enter your username:</p>
         <input
           type='text'

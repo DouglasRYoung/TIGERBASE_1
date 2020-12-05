@@ -113,10 +113,21 @@ def create_app():
         conn.commit()
         return jsonify(data_dict), 201
 
-
-
-        
-    
+    @app.route('/ct_get', methods = ['POST'])
+    def get():
+        conn = None
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        data_json = request.data
+        #print(data_json)
+        data_dict = json.loads(data_json)
+        #print(data_dict)
+        cur.execute('SELECT * FROM College WHERE collegename = \'%s\'' % data_dict['lookUp'])
+        result = cur.fetchone()
+        print(result)
+        cur.close()
+        return jsonify(result)
 
     return app
 
