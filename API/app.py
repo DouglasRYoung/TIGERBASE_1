@@ -143,7 +143,22 @@ def create_app():
         result = cur.fetchone()
         print(result)
         cur.close()
-        return jsonify(result)  
+        return jsonify(result)
+    @app.route('/ct_cost', methods = ['POST'])
+    def CostComp():
+        conn = None
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        data_json = request.data
+        #print(data_json)
+        data_dict = json.loads(data_json)
+        #print(data_dict)
+        cur.execute('SELECT collegeName FROM student INNER JOIN college ON student.willingness_topay >= college.tuition_cost WHERE username = \'%s\'' % data_dict['username'])
+        result = cur.fetchall()
+        print(result)
+        cur.close()
+        return jsonify(result)    
 
         #JoinedTable = ('SELECT * FROM student INNER JOIN college ON location_ = location_')
         #cur.execute('SELECT * FROM JoinedTable WHERE username = \'%s\'' % data_dict['username'])

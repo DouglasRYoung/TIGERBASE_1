@@ -6,6 +6,7 @@ import MiniForm from "./MiniForm";
 import UpdateForm from "./UpdateForm";
 import CollegeSearch from "./CollegeSearch";
 import LQuery from './LQuery';
+import CostComparison from './CostComparison';
 
 function App() {
   const [student, setStudent] = useState(0);
@@ -26,6 +27,7 @@ function App() {
   <UpdateForm />
   <CollegeSearch />
   <LQuery/>
+  <CostComparison/>
     </div>
   ); 
 }
