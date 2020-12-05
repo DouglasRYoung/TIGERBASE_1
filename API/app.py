@@ -140,10 +140,11 @@ def create_app():
         data_dict = json.loads(data_json)
         #print(data_dict)
         cur.execute('SELECT collegeName FROM student INNER JOIN college ON student.location_ = college.location_ WHERE username = \'%s\'' % data_dict['username'])
-        result = cur.fetchone()
+        result = cur.fetchall()
         print(result)
         cur.close()
         return jsonify(result)
+
     @app.route('/ct_cost', methods = ['POST'])
     def CostComp():
         conn = None
@@ -154,7 +155,7 @@ def create_app():
         #print(data_json)
         data_dict = json.loads(data_json)
         #print(data_dict)
-        cur.execute('SELECT collegeName FROM student INNER JOIN college ON student.willingness_topay >= college.tuition_cost WHERE username = \'%s\'' % data_dict['username'])
+        cur.execute('SELECT collegeName FROM student INNER JOIN college ON CAST(student.willingness_topay AS int)>= CAST(college.tuition_cost AS int)WHERE username = \'%s\'' % data_dict['username'])
         result = cur.fetchall()
         print(result)
         cur.close()

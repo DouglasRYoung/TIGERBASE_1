@@ -5,7 +5,8 @@ class LQuery extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        username: ''
+        username: '',
+        colleges:[]
       };
       this.handleSubmit = this.handleSubmit.bind(this)
       this.myChangeHandler = this.myChangeHandler.bind(this)
@@ -27,8 +28,11 @@ class LQuery extends React.Component {
     body: JSON.stringify({
         "username" : state.username
         })
-  })
-  console.log(this.state.username)
+  }).then(res => res.json()).then(data => {
+    console.log(data)
+    this.setState({colleges: data})
+  });
+  //console.log(this.state.username)
       event.preventDefault();
     }
 
@@ -46,6 +50,8 @@ class LQuery extends React.Component {
         />
         <input type="submit" value="Submit" 
         /> 
+        <p>Colleges: {this.state.colleges} <br /> 
+        </p> 
         </form>
       );
     }

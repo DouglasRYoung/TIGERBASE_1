@@ -5,7 +5,8 @@ class CostComparison extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        username: ''
+        username: '',
+        colleges: []
       };
       this.handleSubmit = this.handleSubmit.bind(this)
       this.myChangeHandler = this.myChangeHandler.bind(this)
@@ -27,15 +28,18 @@ class CostComparison extends React.Component {
     body: JSON.stringify({
         "username" : state.username
         })
-  })
-  console.log(this.state.username)
+  }).then(res => res.json()).then(data => {
+    console.log(data)
+    this.setState({colleges: data})
+  });
+  //console.log(this.state.username)
       event.preventDefault();
     }
 
     render() {
       return (
         <form onSubmit={this.handleSubmit}> 
-        <h1>Find University Based On Location:</h1>
+        <h1>Find University Based On Cost:</h1>
         
         <p>Enter your username:</p>
         <input
@@ -46,6 +50,8 @@ class CostComparison extends React.Component {
         />
         <input type="submit" value="Submit" 
         /> 
+        <p>Colleges: {this.state.colleges} <br /> 
+        </p> 
         </form>
       );
     }
