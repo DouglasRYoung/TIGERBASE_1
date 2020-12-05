@@ -129,6 +129,25 @@ def create_app():
         cur.close()
         return jsonify(result)
 
+    @app.route('/ct_location', methods = ['POST'])
+    def locateQ():
+        conn = None
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        data_json = request.data
+        #print(data_json)
+        data_dict = json.loads(data_json)
+        #print(data_dict)
+        cur.execute('SELECT collegeName FROM student INNER JOIN college ON student.location_ = college.location_ WHERE username = \'%s\'' % data_dict['username'])
+        result = cur.fetchone()
+        print(result)
+        cur.close()
+        return jsonify(result)  
+
+        #JoinedTable = ('SELECT * FROM student INNER JOIN college ON location_ = location_')
+        #cur.execute('SELECT * FROM JoinedTable WHERE username = \'%s\'' % data_dict['username'])
+
     return app
 
 if __name__ == '__main__':
