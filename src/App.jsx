@@ -7,6 +7,7 @@ import UpdateForm from "./UpdateForm";
 import CollegeSearch from "./CollegeSearch";
 import LQuery from './LQuery';
 import CostComparison from './CostComparison';
+import Application from './ApplicationIU';
 
 function App() {
   const [student, setStudent] = useState(0);
@@ -28,6 +29,7 @@ function App() {
   <CollegeSearch />
   <LQuery/>
   <CostComparison/>
+  <Application/>
     </div>
   ); 
 }
