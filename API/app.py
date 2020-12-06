@@ -164,6 +164,55 @@ def create_app():
         #JoinedTable = ('SELECT * FROM student INNER JOIN college ON location_ = location_')
         #cur.execute('SELECT * FROM JoinedTable WHERE username = \'%s\'' % data_dict['username'])
 
+    @app.route('/at_insert', methods = ['POST'])
+    def insert_pref():
+        print('INSERTING PREFERENCES')
+        conn = None
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+
+        data_json = request.data
+        data_dict = json.loads(data_json)
+        print(data_dict)
+        major = data_dict['preffered_major']
+        sat = data_dict['sat_score']
+        act = data_dict['act_score']
+        gpa = data_dict['gpa']
+        size = data_dict['school_size']
+        location = data_dict['location_']
+        pub_or_priv = data_dict['pub_or_priv']
+        wtp = data_dict['willingness_topay']
+        username = data_dict['username']
+
+        q2 = 'SELECT (student_id) FROM student WHERE username = \'%s\'' % username
+        cur.execute(q2)
+        sid = cur.fetchone()[0]
+        print(sid)
+        print(type(sid))
+
+        print(sid)
+        
+        record_to_insert = [sid, major, sat, act, gpa, size, location, pub_or_priv, wtp]
+
+        query = "INSERT INTO application (student_id, preferences) VALUES (%s, ARRAY[%s, %s, %s, %s, %s, %s, %s, %s])"
+
+        cur.execute(query,record_to_insert)
+        conn.commit()
+        
+        return jsonify(data_dict), 201
+
+
+    # major is at index 0
+    # sat is at index 1
+    # act is at index 2
+    # gpa is at index 3
+    # size is at index 4
+    # location is at index 5
+    # pub_or_priv is at index 6
+    # wtp is at index 7
+    
+
     return app
 
 if __name__ == '__main__':
