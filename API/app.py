@@ -238,8 +238,31 @@ def create_app():
         cur.execute(q3)
         collegeList = cur.fetchall()
         #print(collegeList)
-        
+        fScores = fitScore(rankList, collegeList)
        # return []
+
+    def fitScore(rl, cl):
+        fScores = []
+        for i in range(len(cl)):
+            #[('5', 'Biology'), ('2', '5'), ('1', '20'), ('8', '4.0'), ('6', '10000'), ('4', 'panama'), ('7', 'public'), ('3', '30000')]
+            #fitScore = majorScore + SATScore + ACTScore
+            if(rl[0][1] in cl[i][2]): majorScore = (100 - ((rl[0][0]) * 10)) 
+            else: majorScore = 0
+            if(rl[1][1] in cl[i][3]): satScore = (100 - ((rl[1][0]) * 10)) 
+            else: satScore = 0
+            actScore = (100 - ((rl[2][0]) * 10)) if (rl[2][1] in cl[i][4]) else: actScore = 0
+            gpaScore = (100 - ((rl[3][0]) * 10)) if (rl[3][1] in cl[i][5]) else gpaScore = 0
+            sizeScore = (100 - ((rl[4][0]) * 10)) if (abs(rl[4][1] - cl[i][6] <= 2000)) else sizeScore = 0
+            locationScore = (100 - ((rl[5][0]) * 10)) if (rl[5][1] == cl[i][7]) else locationScore = 0
+            pubScore = (100 - ((rl[6][0]) * 10)) if (rl[6][1] == cl[i][8]) else pubScore = 0
+            tuitionScore = (100 - ((rl[7][0]) * 10)) if (rl[7][1] >= cl[i][9]) else tuitionScore = 0
+
+            score = majorScore + satScore + actScore + gpaScore + sizeScore + locationScore + pubScore + tuitionScore
+            fScores.append((score, cl[i][1]))
+
+        print(fScores)
+        return fScores
+
 
 
     return app
