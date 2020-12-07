@@ -8,6 +8,7 @@ import CollegeSearch from "./CollegeSearch";
 import LQuery from './LQuery';
 import CostComparison from './CostComparison';
 import Application from './ApplicationIU';
+import AdvFunc from './AdvFunc';
 
 function App() {
   const [student, setStudent] = useState(0);
@@ -30,6 +31,7 @@ function App() {
   <LQuery/>
   <CostComparison/>
   <Application/>
+  <AdvFunc/>
     </div>
   ); 
 }

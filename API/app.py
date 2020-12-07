@@ -212,6 +212,35 @@ def create_app():
     # pub_or_priv is at index 6
     # wtp is at index 7
     
+    @app.route('/adv_func', methods = ['POST'])
+    def aF():
+        print('AdvFunc beginning')
+        conn = None
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        data_json = request.data
+        data_dict = json.loads(data_json)
+        username = data_dict['username']
+        q1 = 'SELECT * FROM student WHERE username = \'%s\'' % username
+        cur.execute(q1)
+        studInfo = cur.fetchone()
+        q2 = 'SELECT preferences FROM application WHERE student_id = \'%s\'' % studInfo[0]
+        cur.execute(q2)
+        prefs = cur.fetchall()[-1][0]
+        studInfo = studInfo[1:9]
+        rankList = list(zip(prefs, studInfo))
+        #print(studInfo)
+        #print(prefs)
+        #print(tuple(rankList))
+        #print(list(rankList))
+        q3 = 'SELECT * FROM college'
+        cur.execute(q3)
+        collegeList = cur.fetchall()
+        #print(collegeList)
+        
+       # return []
+
 
     return app
 
