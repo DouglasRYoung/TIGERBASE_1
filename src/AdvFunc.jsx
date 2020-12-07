@@ -50,7 +50,10 @@ class AdvFunc extends React.Component {
           />
           <input type="submit" value="Submit" 
           /> 
-          <p>Colleges: {this.state.colleges} <br /> 
+          <p>Your Top 3 Schools: <br />
+             #1: {this.state.colleges[0]} <br />
+             #2: {this.state.colleges[1]} <br /> 
+             #3: {this.state.colleges[2]} <br />  
           </p> 
           </form>
         );

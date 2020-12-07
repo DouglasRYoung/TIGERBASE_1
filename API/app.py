@@ -125,7 +125,7 @@ def create_app():
         #print(data_dict)
         cur.execute('SELECT * FROM College WHERE collegename = \'%s\'' % data_dict['lookUp'])
         result = cur.fetchone()
-        print(result)
+        #print(result[2])
         cur.close()
         return jsonify(result)
 
@@ -267,7 +267,7 @@ def create_app():
             else: tuitionScore = 0
 
             score = majorScore + satScore + actScore + gpaScore + sizeScore + locationScore + pubScore + tuitionScore
-            fScores.append((score, cl[i][1]))
+            fScores.append((score, ' '+ cl[i][1]))
 
         fScores.sort(reverse=True)
 
