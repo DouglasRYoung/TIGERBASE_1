@@ -239,6 +239,9 @@ def create_app():
         collegeList = cur.fetchall()
         #print(collegeList)
         fScores = fitScore(rankList, collegeList)
+        cur.close()
+        return jsonify(fScores)
+
        # return []
 
     def fitScore(rl, cl):
@@ -246,22 +249,30 @@ def create_app():
         for i in range(len(cl)):
             #[('5', 'Biology'), ('2', '5'), ('1', '20'), ('8', '4.0'), ('6', '10000'), ('4', 'panama'), ('7', 'public'), ('3', '30000')]
             #fitScore = majorScore + SATScore + ACTScore
-            if(rl[0][1] in cl[i][2]): majorScore = (100 - ((rl[0][0]) * 10)) 
+            if(rl[0][1] in cl[i][2]): majorScore = (100 - (int(rl[0][0]) * 10)) 
             else: majorScore = 0
-            if(rl[1][1] in cl[i][3]): satScore = (100 - ((rl[1][0]) * 10)) 
+            if(float(rl[1][1]) >= float(cl[i][3])): satScore = (100 - (int(rl[1][0]) * 10)) 
             else: satScore = 0
-            actScore = (100 - ((rl[2][0]) * 10)) if (rl[2][1] in cl[i][4]) else: actScore = 0
-            gpaScore = (100 - ((rl[3][0]) * 10)) if (rl[3][1] in cl[i][5]) else gpaScore = 0
-            sizeScore = (100 - ((rl[4][0]) * 10)) if (abs(rl[4][1] - cl[i][6] <= 2000)) else sizeScore = 0
-            locationScore = (100 - ((rl[5][0]) * 10)) if (rl[5][1] == cl[i][7]) else locationScore = 0
-            pubScore = (100 - ((rl[6][0]) * 10)) if (rl[6][1] == cl[i][8]) else pubScore = 0
-            tuitionScore = (100 - ((rl[7][0]) * 10)) if (rl[7][1] >= cl[i][9]) else tuitionScore = 0
+            if (float(rl[2][1]) >= float(cl[i][4])): actScore = (100 - (int(rl[2][0]) * 10))  
+            else: actScore = 0
+            if (float(rl[3][1]) >= float(cl[i][5])): gpaScore = (100 - (int(rl[3][0]) * 10))  
+            else: gpaScore = 0
+            if (abs(float(rl[4][1]) - float(cl[i][6]) <= 2000)): sizeScore = (100 - (int(rl[4][0]) * 10)) 
+            else: sizeScore = 0
+            if (rl[5][1] == cl[i][7]): locationScore = (100 - (int(rl[5][0]) * 10))  
+            else: locationScore = 0
+            if (rl[6][1] == cl[i][8]): pubScore = (100 - (int(rl[6][0]) * 10)) 
+            else: pubScore = 0
+            if (float(rl[7][1]) >= float(cl[i][9])): tuitionScore = (100 - (int(rl[7][0]) * 10)) 
+            else: tuitionScore = 0
 
             score = majorScore + satScore + actScore + gpaScore + sizeScore + locationScore + pubScore + tuitionScore
             fScores.append((score, cl[i][1]))
 
+        fScores.sort(reverse=True)
+
         print(fScores)
-        return fScores
+        return fScores[0:3]
 
 
 
